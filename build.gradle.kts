@@ -25,10 +25,8 @@ repositories {
 dependencies {
   implementation("io.ktor:ktor-server-core-jvm")
   implementation("io.ktor:ktor-server-html-builder-jvm")
-  implementation("org.jetbrains:kotlinx-html:0.10.1")
   implementation("io.ktor:ktor-server-call-logging-jvm")
   implementation("io.ktor:ktor-server-host-common-jvm")
-  implementation("org.jetbrains:kotlin-css-jvm:1.0.0-pre.129-kotlin-1.4.20")
   implementation("io.ktor:ktor-server-sessions-jvm")
   implementation("io.ktor:ktor-server-status-pages-jvm")
   implementation("io.ktor:ktor-server-partial-content-jvm")
