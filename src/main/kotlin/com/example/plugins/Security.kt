@@ -14,10 +14,10 @@ fun Application.configureSecurity() {
     }
   }
   authentication {
-    basic(name = "myauth1") {
-      realm = "Ktor Server"
+    basic(name = "bookStoreAuth") {
+      realm = "Book Store"
       validate { credentials ->
-        if (credentials.name == credentials.password) {
+        if (credentials.name == "user" && credentials.password == "password") {
           UserIdPrincipal(credentials.name)
         } else {
           null
@@ -39,13 +39,13 @@ fun Application.configureSecurity() {
       call.sessions.set(session.copy(count = session.count + 1))
       call.respondText("Counter is ${session.count}. Refresh to increment.")
     }
-    authenticate("myauth1") {
+    authenticate("bookStoreAuth") {
       get("/protected/route/basic") {
         val principal = call.principal<UserIdPrincipal>()!!
         call.respondText("Hello ${principal.name}")
       }
     }
-    authenticate("myauth2") {
+    authenticate("bookStoreAuth") {
       get("/protected/route/form") {
         val principal = call.principal<UserIdPrincipal>()!!
         call.respondText("Hello ${principal.name}")

@@ -23,6 +23,7 @@ repositories {
 }
 
 dependencies {
+  implementation("io.ktor:ktor-server-locations:$ktor_version")
   implementation("io.ktor:ktor-server-core-jvm")
   implementation("io.ktor:ktor-server-html-builder-jvm")
   implementation("io.ktor:ktor-server-call-logging-jvm")
