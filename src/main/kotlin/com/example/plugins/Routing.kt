@@ -9,6 +9,7 @@ import io.ktor.server.plugins.statuspages.StatusPages
 import io.ktor.server.response.respondText
 import io.ktor.server.routing.get
 import io.ktor.server.routing.routing
+import ui.login.loginView
 
 fun Application.configureRouting() {
   install(StatusPages) {
@@ -22,5 +23,6 @@ fun Application.configureRouting() {
       call.respondText("Hello World!")
     }
     books()
+    loginView()
   }
 }

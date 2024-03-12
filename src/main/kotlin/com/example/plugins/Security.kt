@@ -1,15 +1,17 @@
 package com.example.plugins
 
+import com.example.Constants
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.server.sessions.*
+import ui.login.Session
 
 fun Application.configureSecurity() {
   data class MySession(val count: Int = 0)
   install(Sessions) {
-    cookie<MySession>("MY_SESSION") {
+    cookie<Session>(Constants.COOKIE_NAME.value) {
       cookie.extensions["SameSite"] = "lax"
     }
   }

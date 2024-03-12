@@ -1,6 +1,5 @@
 package com.example
 
-import Book
 import com.mongodb.MongoClientSettings
 import com.mongodb.client.MongoClients
 import com.mongodb.client.MongoCollection

@@ -1,6 +1,5 @@
 package com.example
 
-import Book
 import io.ktor.server.application.call
 import io.ktor.server.auth.authenticate
 import io.ktor.server.locations.Location
