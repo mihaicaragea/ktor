@@ -7,6 +7,7 @@ import com.mongodb.client.MongoDatabase
 import com.mongodb.client.model.Filters.eq
 import com.mongodb.client.model.Filters.or
 import com.mongodb.client.model.Filters.regex
+import org.bson.BsonDocument
 import org.bson.Document
 import org.bson.codecs.configuration.CodecRegistries.fromProviders
 import org.bson.codecs.configuration.CodecRegistries.fromRegistries
@@ -42,6 +43,8 @@ enum class DataManagerMongoDb {
   }
 
   private fun initBooks() {
+    bookCollection.deleteMany(BsonDocument())
+    cartCollection.deleteMany(BsonDocument())
     bookCollection.insertOne(Book(null, "How to grow apples", "Mr. Appleton", 100.0f))
     bookCollection.insertOne(Book(null, "How to grow oranges", "Mr. Oranges", 90.0f))
     bookCollection.insertOne(Book(null, "How to grow lemons", "Mr. Lemons", 110.0f))

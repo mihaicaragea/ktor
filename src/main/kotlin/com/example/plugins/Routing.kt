@@ -10,6 +10,7 @@ import io.ktor.server.response.respondText
 import io.ktor.server.routing.get
 import io.ktor.server.routing.routing
 import ui.cart.cart
+import ui.checkout.receipt
 import ui.login.loginView
 
 fun Application.configureRouting() {
@@ -26,5 +27,6 @@ fun Application.configureRouting() {
     books()
     loginView()
     cart()
+    receipt()
   }
 }
