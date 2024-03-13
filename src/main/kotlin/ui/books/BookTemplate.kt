@@ -1,10 +1,9 @@
 package ui.books
 
-import com.example.Book
+import com.example.model.Book
 import io.ktor.server.html.Placeholder
 import io.ktor.server.html.Template
 import io.ktor.server.html.insert
-import kotlinx.css.tr
 import kotlinx.html.ButtonType
 import kotlinx.html.FlowContent
 import kotlinx.html.FormEncType
@@ -78,9 +77,20 @@ class BookTemplate(val  session: Session?, val books: List<Book>) : Template<HTM
                   td { +"${it.title}" }
                   td { +"${it.author}" }
                   td { +"${it.price}" }
-                  td { button(classes = "btn btn-success", type = ButtonType.submit) {
-                    + "Add to cart"
-                  } }
+                  td {
+                    form(
+                      method = FormMethod.post,
+                      encType = FormEncType.multipartFormData,
+                      action = Endpoints.DOADDTOCART.url
+                    ) {
+                      button(classes = "btn btn-success", type = ButtonType.submit) {
+                        +"Add to cart"
+                      }
+                      input(type = InputType.hidden, name = "bookid") {
+                        value="${it.id}"
+                      }
+                    }
+                  }
                 }
               }
             }

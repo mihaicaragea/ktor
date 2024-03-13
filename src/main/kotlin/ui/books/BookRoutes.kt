@@ -1,5 +1,7 @@
-package com.example
+package ui.books
 
+import com.example.model.Book
+import com.example.model.DataManagerMongoDb
 import io.ktor.http.content.PartData
 import io.ktor.server.application.call
 import io.ktor.server.auth.authenticate
@@ -18,12 +20,10 @@ import io.ktor.server.routing.put
 import io.ktor.server.routing.route
 import io.ktor.server.sessions.get
 import io.ktor.server.sessions.sessions
-import kotlinx.css.i
 import kotlinx.html.i
 import org.slf4j.LoggerFactory
 import ui.Endpoints
 import ui.Endpoints.DOBOOKSEARCH
-import ui.books.BookTemplate
 import ui.login.Session
 
 @Location("/book/lists")

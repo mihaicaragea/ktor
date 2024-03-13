@@ -1,4 +1,4 @@
-package com.example
+package com.example.model
 
 import com.mongodb.MongoClientSettings
 import com.mongodb.client.MongoClients
@@ -14,12 +14,14 @@ import org.bson.codecs.configuration.CodecRegistry
 import org.bson.codecs.pojo.PojoCodecProvider
 import org.bson.types.ObjectId
 import org.slf4j.LoggerFactory
+import ui.login.Session
 
 enum class DataManagerMongoDb {
   INSTANCE;
   val log = LoggerFactory.getLogger(DataManagerMongoDb::class.java)
   val dataBase: MongoDatabase
   val bookCollection: MongoCollection<Book>
+  val cartCollection: MongoCollection<Cart>
 
   init {
     val pojoCodecRegistry: CodecRegistry = fromProviders(PojoCodecProvider.builder().automatic(true).build())
@@ -35,6 +37,7 @@ enum class DataManagerMongoDb {
     val mongoClient = MongoClients.create(clientSettings)
     dataBase = mongoClient.getDatabase("development");
     bookCollection = dataBase.getCollection(Book::class.java.name, Book::class.java)
+    cartCollection = dataBase.getCollection(Cart::class.java.simpleName, Cart::class.java)
     initBooks()
   }
 
@@ -94,5 +97,40 @@ enum class DataManagerMongoDb {
       )
       .sort(Document(mapOf(Pair("title", 1), Pair("_id", -1))))
       .toList()
+  }
+  fun updateCart(cart:Cart){
+    val replaceOne = cartCollection.replaceOne(eq("username", cart.username), cart)
+    log.info("Update result: $replaceOne")
+  }
+
+  fun addBook(session: Session?, book: Book){
+    val cartForUser = cartForUser(session)
+    cartForUser.addBook(book)
+    updateCart(cartForUser)
+  }
+
+  fun cartForUser(session: Session?): Cart{
+    if (session == null)
+      throw IllegalArgumentException("Session is null")
+    val find = cartCollection.find(eq("username", session.username))
+
+    if (find.count() == 0){
+      val cart = Cart(username=session.username)
+      cartCollection.insertOne(cart)
+      return cart
+    }
+    else
+      return find.first()
+  }
+
+  fun getBookWithId(bookid: String): Book {
+    log.info("Get book with id: $bookid")
+    return bookCollection.find(eq("_id", ObjectId(bookid))).first()
+  }
+
+  fun removeBook(session: Session?, book: Book) {
+    val cartForUser = cartForUser(session)
+    cartForUser.removeBook(book)
+    updateCart(cartForUser)
   }
 }

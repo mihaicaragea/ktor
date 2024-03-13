@@ -1,5 +1,6 @@
 package ui
 
+import com.example.model.DataManagerMongoDb
 import io.ktor.server.html.PlaceholderList
 import io.ktor.server.html.Template
 import io.ktor.server.html.each
@@ -10,6 +11,7 @@ import kotlinx.html.UL
 import kotlinx.html.a
 import kotlinx.html.button
 import kotlinx.html.div
+import kotlinx.html.form
 import kotlinx.html.id
 import kotlinx.html.li
 import kotlinx.html.nav
@@ -37,6 +39,16 @@ class NavigationTemplate(val session: Session?) : Template<FlowContent> {
             each(menuitems) {
               li {
                 insert(it)
+              }
+            }
+          }
+        }
+        div(classes=""){
+          if (session != null){
+            val cartForUser = DataManagerMongoDb.INSTANCE.cartForUser(session)
+            form(action=Endpoints.CART.url){
+              button(classes="btn btn-danger", type=ButtonType.submit){
+                +"Items in cart: ${cartForUser?.qtyTotal}, total price: ${cartForUser?.sum}"
               }
             }
           }

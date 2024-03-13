@@ -1,7 +1,7 @@
 package ui.login
 
 import com.example.Constants
-import com.example.DataManagerMongoDb
+import com.example.model.DataManagerMongoDb
 import com.example.SecurityHandler
 import io.ktor.http.content.PartData
 import io.ktor.server.application.call
