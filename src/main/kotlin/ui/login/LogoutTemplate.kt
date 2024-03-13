@@ -11,8 +11,9 @@ import kotlinx.html.h2
 import ui.Endpoints
 import ui.GeneralViewTemplate
 
-class LogoutTemplate(val basicTemplate: GeneralViewTemplate = GeneralViewTemplate()) : Template<HTML> {
+class LogoutTemplate(val session: Session?) : Template<HTML> {
   val greeting = Placeholder<FlowContent>()
+  val basicTemplate: GeneralViewTemplate = GeneralViewTemplate(session)
   override fun HTML.apply() {
     insert(basicTemplate) {
       menu {

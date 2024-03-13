@@ -15,8 +15,9 @@ import kotlinx.html.li
 import kotlinx.html.nav
 import kotlinx.html.span
 import kotlinx.html.ul
+import ui.login.Session
 
-class NavigationTemplate : Template<FlowContent> {
+class NavigationTemplate(val session: Session?) : Template<FlowContent> {
   val menuitems = PlaceholderList<UL,FlowContent>()
   override fun FlowContent.apply() {
     div {

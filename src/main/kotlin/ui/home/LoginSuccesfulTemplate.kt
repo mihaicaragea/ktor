@@ -15,9 +15,11 @@ import kotlinx.html.p
 import ui.Endpoints
 import ui.GeneralViewTemplate
 import ui.NavigationTemplate
+import ui.login.Session
 
-class LoginSuccessfulTemplate(val basicTemplate: GeneralViewTemplate = GeneralViewTemplate()) : Template<HTML> {
+class LoginSuccessfulTemplate(val session: Session?) : Template<HTML> {
   val greeting = Placeholder<FlowContent>()
+  val basicTemplate: GeneralViewTemplate = GeneralViewTemplate(session)
   val menu = TemplatePlaceholder<NavigationTemplate>()
   override fun HTML.apply() {
     insert(basicTemplate) {

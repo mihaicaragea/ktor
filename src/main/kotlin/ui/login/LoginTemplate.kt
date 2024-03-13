@@ -19,8 +19,9 @@ import kotlinx.html.p
 import ui.Endpoints
 import ui.GeneralViewTemplate
 
-class LoginTemplate(val basicTemplate: GeneralViewTemplate = GeneralViewTemplate()) : Template<HTML> {
+class LoginTemplate(val session: Session?) : Template<HTML> {
   val greeting = Placeholder<FlowContent>()
+  private val basicTemplate: GeneralViewTemplate = GeneralViewTemplate(session)
   override fun HTML.apply() {
     insert(basicTemplate) {
       menu {
@@ -37,7 +38,7 @@ class LoginTemplate(val basicTemplate: GeneralViewTemplate = GeneralViewTemplate
       }
       content {
         div(classes = "mt-2") {
-          h2() {
+          h2 {
             + "Welcome to the \"Bookstore\""
           }
           p{
