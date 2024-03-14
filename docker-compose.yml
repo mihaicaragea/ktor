@@ -1,6 +1,5 @@
-version: '3'
+version: "3"
 services:
-  mymongo:
-    image: mongo:latest
-    ports:
-      - "27017:27017"
+  myktorapp:
+    build: .
+    network_mode: host

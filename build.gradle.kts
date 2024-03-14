@@ -1,8 +1,11 @@
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+
 val ktor_version: String by project
 val kotlin_version: String by project
 val logback_version: String by project
 
 plugins {
+  id("com.github.johnrengelman.shadow") version "8.1.1"
   kotlin("jvm") version "1.9.22"
   id("io.ktor.plugin") version "2.3.8"
 }
@@ -10,12 +13,23 @@ plugins {
 group = "com.example"
 version = "0.0.1"
 
+var mainClassName = "com.learning.ApplicationKt"
+
 application {
-  mainClass.set("com.example.ApplicationKt")
+  mainClass.set("mainClassName")
 
   val isDevelopment: Boolean = project.ext.has("development")
   applicationDefaultJvmArgs = listOf("-Dio.ktor.development=$isDevelopment")
 }
+
+val shadowJar: ShadowJar by tasks
+shadowJar.apply {
+  manifest.attributes.apply {
+    put("Main-Class", mainClassName)
+  }
+  archiveFileName.set("app.jar")
+}
+
 
 repositories {
   mavenCentral()
